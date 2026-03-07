@@ -1,0 +1,70 @@
+voice-ai/
+│
+├── infrastructure/
+│
+│   ├── docker/
+│   │   ├── django.Dockerfile
+│   │   ├── stt.Dockerfile
+│   │   ├── tts.Dockerfile
+│   │   ├── llm.Dockerfile
+│   │   ├── action.Dockerfile
+│   │   └── audio.Dockerfile
+│
+│   ├── nginx/
+│   │   └── nginx.conf
+│
+│   └── monitoring/
+│       └── prometheus.yml
+│
+├── services/
+│
+│   ├── django-core/        ← ORCHESTRATOR
+│   │
+│   │   ├── app/
+│   │   │   ├── api/
+│   │   │   │   └── routes.py
+│   │   │   │
+│   │   │   ├── pipeline/
+│   │   │   │   └── voice_pipeline.py
+│   │   │   │
+│   │   │   ├── services/
+│   │   │   │   ├── stt_client.py
+│   │   │   │   ├── llm_client.py
+│   │   │   │   ├── tts_client.py
+│   │   │   │   └── action_client.py
+│   │   │   │
+│   │   │   ├── tasks/
+│   │   │   │   └── celery_tasks.py
+│   │   │   │
+│   │   │   └── main.py
+│
+│   ├── stt-service/
+│   │   ├── main.py
+│   │   └── whisper_engine.py
+│
+│   ├── tts-service/
+│   │   ├── main.py
+│   │   └── tts_engine.py
+│
+│   ├── llm-service/
+│   │   ├── intent_detector.py
+│   │   └── planner.py
+│
+│   ├── action-service/
+│   │   ├── executor.py
+│   │   └── order_service.py
+│
+│   └── audio-gateway/
+│       ├── websocket_server.py
+│       └── audio_stream.py
+│
+├── shared/
+│
+│   ├── schemas.py
+│   ├── constants.py
+│   └── config.py
+│
+├── docker-compose.yml
+├── requirements.txt
+├── .env.example
+└── README.md

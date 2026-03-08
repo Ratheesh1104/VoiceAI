@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: voice
+      POSTGRES_PASSWORD: voice
+      POSTGRES_DB: voice_ai
+    ports:
+      - "5432:5432"
+
+  django-core:
+      image: python:3.11-slim
+      command: sleep infinity
+      volumes:
+        - .:/app
+
+  stt-service:
+      image: python:3.11-slim
+      command: sleep infinity
+      volumes:
+        - .:/app
+
+  tts-service:
+    image: python:3.11-slim
+    command: sleep infinity
+    volumes:
+      - .:/app
+
+  llm-service:
+    image: python:3.11-slim
+    command: sleep infinity
+    volumes:
+      - .:/app
+
+  action-service:
+    image: python:3.11-slim
+    command: sleep infinity
+    volumes:
+      - .:/app
+
+  memory-service:
+    image: python:3.11-slim
+    command: sleep infinity
+    volumes:
+      - .:/app

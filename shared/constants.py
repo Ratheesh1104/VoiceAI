@@ -5,3 +5,4 @@ class Service(str, Enum):
     TTS = "tts-service"
     LLM = "llm-request"
     ACTION = "action-service"
+    MEMORY = "memory-service"

@@ -5,6 +5,14 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "celery>=5.6.2",
+    "coqui-tts>=0.27.5",
+    "fastapi>=0.135.1",
+    "playwright>=1.58.0",
     "pydantic>=2.12.5",
+    "python-dotenv>=1.2.2",
+    "redis>=7.3.0",
     "requests>=2.32.5",
+    "unicorn>=2.1.4",
+    "whisper>=1.1.10",
 ]

@@ -16,10 +16,11 @@ services:
       - "5432:5432"
 
   django-core:
-      image: python:3.11-slim
-      command: sleep infinity
-      volumes:
-        - .:/app
+    build: ./services/django-core
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./services/django-core:/app
 
   stt-service:
       image: python:3.11-slim

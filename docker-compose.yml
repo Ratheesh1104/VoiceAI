@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   redis:
     image: redis:7
@@ -16,17 +14,22 @@ services:
       - "5432:5432"
 
   django-core:
-    build: ./services/django-core
+    build:
+      context: .
+      dockerfile: infrastructure/docker/django.Dockerfile
     ports:
       - "8000:8000"
     volumes:
       - ./services/django-core:/app
 
   stt-service:
-      image: python:3.11-slim
-      command: sleep infinity
-      volumes:
-        - .:/app
+    build:
+      context: .
+      dockerfile: infrastructure/docker/stt.Dockerfile
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./services/stt-service:/app
 
   tts-service:
     image: python:3.11-slim

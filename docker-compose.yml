@@ -45,6 +45,8 @@ services:
       - "8002:8002"
     volumes:
       - ./services/llm-service:/app
+    depends_on:
+      - ollama
 
   action-service:
     image: python:3.11-slim

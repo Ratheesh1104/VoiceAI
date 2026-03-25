@@ -2,7 +2,7 @@ import requests
 import json
 from prompt_template import SYSTEM_PROMPT
 
-OLLAMA_URL = "http://ollama:11434"
+OLLAMA_URL = "http://ollama:11434/api/generate"
 
 def process_text(user_text):
     prompt = SYSTEM_PROMPT + f"\n\nUser: {user_text}"

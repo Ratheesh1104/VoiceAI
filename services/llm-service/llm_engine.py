@@ -1,15 +1,29 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-from llm_engine import process_text
+import requests
+import json
+from prompt_template import SYSTEM_PROMPT
 
-app = FastAPI(title="LLM Service")
+OLLAMA_URL = "http://ollama:11434"
 
-class TextRequest(BaseModel):
-    text: str
+def process_text(user_text):
+    prompt = SYSTEM_PROMPT + f"\n\nUser: {user_text}"
 
-@app.post("/intent")
-def detect_intent(req: TextRequest):
+    response = requests.post(
+        OLLAMA_URL,
+        json={
+            "model": "llama3"
+            "prompt": prompt
+            "stream": False
+        }
+    )
 
-    result = process_text(req.text)
+    result = response.json()["response"]
 
-    return result
+    try:
+        return json.loads(result)
+    except:
+        return {
+            "intent": "unknown",
+            "entities": {},
+            "action": "none",
+            "response": result
+        }

@@ -38,10 +38,13 @@ services:
       - .:/app
 
   llm-service:
-    image: python:3.11-slim
-    command: sleep infinity
+    build:
+      context: .
+      dockerfile: infrastructure/docker/llm.Dockerfile
+    ports:
+      - "8002:8002"
     volumes:
-      - .:/app
+      - ./services/llm-service:/app
 
   action-service:
     image: python:3.11-slim

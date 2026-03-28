@@ -10,8 +10,8 @@ def process_text(user_text):
     response = requests.post(
         OLLAMA_URL,
         json={
-            "model": "llama3"
-            "prompt": prompt
+            "model": "llama3",
+            "prompt": prompt,
             "stream": False
         }
     )

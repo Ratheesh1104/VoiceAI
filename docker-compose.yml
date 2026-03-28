@@ -4,9 +4,19 @@ services:
     ports:
       - "6379:6379"
   ollama:
-    image: ollama/ollama
+    build:
+      context: .
+      dockerfile: infrastructure/docker/ollama.Dockerfile
     ports:
       - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   postgres:
     image: postgres:15
@@ -50,7 +60,11 @@ services:
     volumes:
       - ./services/llm-service:/app
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+    entrypoint: ["./services/llm-service/wait-for-ollama.sh", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002"]
+
 
   action-service:
     image: python:3.11-slim
@@ -63,3 +77,6 @@ services:
     command: sleep infinity
     volumes:
       - .:/app
+
+volumes:
+  ollama_data:

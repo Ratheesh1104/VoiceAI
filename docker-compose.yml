@@ -63,7 +63,7 @@ services:
       ollama:
         condition: service_healthy
     restart: unless-stopped
-    entrypoint: ["./services/llm-service/wait-for-ollama.sh", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002"]
+    entrypoint: ["/app/wait-for-ollama.sh", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002"]
 
 
   action-service:
